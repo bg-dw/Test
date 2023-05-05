@@ -5,51 +5,38 @@
 </head>
 
 <body>
-
-    <?php
-    $nama = $alamat = $telp = $gen = "";
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $nama = input($_POST["nama"]);
-        $alamat = input($_POST["alamat"]);
-        $telp = input($_POST["telp"]);
-        $gen = input($_POST["gen"]);
-    }
-
-    function input($data)
-    {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
-    ?>
-
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        Nama: <input type="" name="nama" onkeydown="return /[a-z]/i.test(event.key)" required>
+    <form method="post" action="#" id="fm">
+        Nama: <input type="text" name="nama" required id="nm">
         <br><br>
-        Alamat: <input type="text" name="alamat" required>
+        Alamat: <input type="text" name="alamat" required id="al">
         <br><br>
-        Nomor Telepon: <input type="number" name="telp" required>
+        Nomor Telepon: <input type="number" name="telp" required id="telp">
         <br><br>
-        Jenis Kelamin: <select name="gen" id="" required>
+        Jenis Kelamin: <select name="gen" id="jk" required>
             <option value="Laki-Laki">Laki-Laki</option>
             <option value="Perempuan">Perempuan</option>
         </select>
         <br><br>
-        <input type="submit" name="submit" value="Submit">
+        <input type="button" onclick="kirim()" name="submit" value="Submit">
     </form>
-
-    <?php
-    echo "<h2>Isi Data:</h2>";
-    echo $nama;
-    echo "<br>";
-    echo $alamat;
-    echo "<br>";
-    echo $telp;
-    echo "<br>";
-    echo $gen;
-    ?>
+    <p></p>
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script>
+        function kirim() {
+            var data = $('#fm').serialize();
+            $.ajax({
+                type: 'POST',
+                url: "send.php",
+                data: data,
+                success: function (data) {
+                    console.log("berhasil");
+                    $('p').html(data);
+                    console.log(data);
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
