@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+</head>
+
+<body>
+
+    <?php
+    $nama = $alamat = $telp = $gen = "";
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $nama = input($_POST["nama"]);
+        $alamat = input($_POST["alamat"]);
+        $telp = input($_POST["telp"]);
+        $gen = input($_POST["gen"]);
+    }
+
+    function input($data)
+    {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
+    ?>
+
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        Nama: <input type="" name="nama" onkeydown="return /[a-z]/i.test(event.key)" required>
+        <br><br>
+        Alamat: <input type="text" name="alamat" required>
+        <br><br>
+        Nomor Telepon: <input type="number" name="telp" required>
+        <br><br>
+        Jenis Kelamin: <select name="gen" id="" required>
+            <option value="Laki-Laki">Laki-Laki</option>
+            <option value="Perempuan">Perempuan</option>
+        </select>
+        <br><br>
+        <input type="submit" name="submit" value="Submit">
+    </form>
+
+    <?php
+    echo "<h2>Isi Data:</h2>";
+    echo $nama;
+    echo "<br>";
+    echo $alamat;
+    echo "<br>";
+    echo $telp;
+    echo "<br>";
+    echo $gen;
+    ?>
+</body>
+
+</html>
